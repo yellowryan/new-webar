@@ -11,6 +11,15 @@
     </head>
 
     <body style="margin: 0; overflow: hidden">
+
+        <div id="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <span>loading...</span>
+        </div>
+
         <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
@@ -32,7 +41,7 @@
                 ></a-asset-item> -->
                 <audio id="music" src="assets/music.mp3" preload="auto"></audio>
             </a-assets>
-           <!-- marker url就是从https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/generator.html 这个网站上通过DOWNLOAD MARKER下载下来的
+        <!-- marker url就是从https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/generator.html 这个网站上通过DOWNLOAD MARKER下载下来的
         然后放入assets中通过路径形式引入就可以-->
             <a-marker
                 id="animated-marker"
@@ -53,7 +62,7 @@
                     class="clickable"
                     gesture-handler
                 ></a-entity>
-
+        
             <!-- 可以手动调节scale 或者 position-->
                 <!-- <a-entity
                     scale="1 1 1"
@@ -62,7 +71,7 @@
                     class="clickable"
                     gesture-handler
                 ></a-entity> -->
-
+        
             <!-- 可以添加mp4文件-->
                 <!-- <a-video
                     src=""
@@ -70,7 +79,7 @@
                     position=""
                     class="clickable"
                 ></a-video> -->
-
+        
             <!-- 修改音乐 -->
                 <a-sound
                     id="sound"
@@ -79,24 +88,31 @@
                     position="0 2 5"
                 ></a-sound>
             </a-marker>
-
+        
             <a-entity camera></a-entity>
         </a-scene>
 
-        <div id="loading">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <span>loading...</span>
+        <div id="container" style="display: none">
+            <div style="position:fixed;top:50%;left:50%;transform: translate(-50%, -50%); color:#333;font-size: 22px;text-align: center;">
+                <p style="font-weight: 600;">请点击屏幕右上角 [ ··· ] </p>
+                <p>浏览器中打开...</p>
+            </div>
         </div>
     </body>
 
     <script>
-        const loadDiv = document.getElementById('loading');
 
         window.onload = () => {
+            const loadDiv = document.getElementById('loading');
+            const container = document.getElementById("container");
+            const isWxBrowser = navigator.userAgent.indexOf("MicroMessenger") > 0;
+
             loadDiv.parentNode.removeChild(loadDiv);
+
+            if (isWxBrowser) {
+                document.body.removeChild(document.getElementById('scene'))
+                container.style.cssText="display: block"
+            }
         }
     </script>
 </html>
