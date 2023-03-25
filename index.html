@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>webar-demo</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
         <script src="/script/aframe.min.js"></script>
         <script src="/script/aframe-ar.js"></script>
         <script src="/script/aframe-extras.js"></script>
@@ -9,7 +10,7 @@
         <script src="/script/gesture-handler.js"></script>
     </head>
 
-    <body style="margin: 0; overflow: hidden;">
+    <body style="margin: 0; overflow: hidden">
         <a-scene
             vr-mode-ui="enabled: false;"
             loading-screen="enabled: false;"
@@ -81,5 +82,21 @@
 
             <a-entity camera></a-entity>
         </a-scene>
+
+        <div id="loading">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <span>loading...</span>
+        </div>
     </body>
+
+    <script>
+        const loadDiv = document.getElementById('loading');
+
+        window.onload = () => {
+            loadDiv.parentNode.removeChild(loadDiv);
+        }
+    </script>
 </html>
