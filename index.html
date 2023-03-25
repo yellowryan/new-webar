@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
     <head>
+        <title>webar-demo</title>
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
@@ -18,13 +19,20 @@
             embedded
             gesture-detector
         >
+        <!-- 此处的作用是预加载资源，同时进行一个资源缓存， gltf、MP4、MP3等等-->
             <a-assets>
                 <a-asset-item
                     id="animated-asset"
                     src="assets/asset.gltf"
                 ></a-asset-item>
+                <!-- <a-asset-item
+                    id="animated-asset2"
+                    src=""
+                ></a-asset-item> -->
+                <audio id="music" src="assets/music.mp3" preload="auto"></audio>
             </a-assets>
-
+           <!-- marker url就是从https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/generator.html 这个网站上通过DOWNLOAD MARKER下载下来的
+        然后放入assets中通过路径形式引入就可以-->
             <a-marker
                 id="animated-marker"
                 type="pattern"
@@ -35,6 +43,7 @@
                 cursor="fuse: false; rayOrigin: mouse;"
                 id="markerA"
             >
+            <!-- gltf-model="#animated-asset 对应asset-item中的id, 有多个3d模型的话就多增加几个<a-asset-item> -->
                 <a-entity
                     id="bowser-model"
                     scale="1.1844162012747534 1.1844162012747534 1.1844162012747534"
@@ -42,6 +51,31 @@
                     gltf-model="#animated-asset"
                     class="clickable"
                     gesture-handler
+                ></a-entity>
+
+            <!-- 可以手动调节scale 或者 position-->
+                <!-- <a-entity
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#"
+                    class="clickable"
+                    gesture-handler
+                ></a-entity> -->
+
+            <!-- 可以添加mp4文件-->
+                <a-video
+                    src=""
+                    scale=""
+                    position=""
+                    class="clickable"
+                ></a-video>
+
+
+                <a-entity
+                    id="sound"
+                    geometry="primitive: box"
+                    material="src: assets/music.png"
+                    sound="src: #music; on: click"
                 ></a-entity>
             </a-marker>
 
