@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>webar-demo</title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" type="text/css" href="index.css">
         <script src="/script/aframe.min.js"></script>
         <script src="/script/aframe-ar.js"></script>
@@ -94,25 +95,31 @@
 
         <div id="container" style="display: none">
             <div style="position:fixed;top:50%;left:50%;transform: translate(-50%, -50%); color:#333;font-size: 22px;text-align: center;">
-                <p style="font-weight: 600;">请点击屏幕右上角 [ ··· ] </p>
-                <p>浏览器中打开...</p>
+                <p style="font-weight: 600;">请点击屏幕右上角···</p>
+                <p>在浏览器中打开</p>
             </div>
         </div>
     </body>
 
     <script>
-
-        window.onload = () => {
-            const loadDiv = document.getElementById('loading');
-            const container = document.getElementById("container");
+        window.onerror = () => {
+            removeLoading();
             const isWxBrowser = navigator.userAgent.indexOf("MicroMessenger") > 0;
-
-            loadDiv.parentNode.removeChild(loadDiv);
-
             if (isWxBrowser) {
                 document.body.removeChild(document.getElementById('scene'))
                 container.style.cssText="display: block"
             }
         }
+
+        window.onload = () => {
+            removeLoading();
+        }
+
+        function removeLoading() {
+            const loadDiv = document.getElementById('loading');
+            const container = document.getElementById("container");
+            loadDiv.parentNode.removeChild(loadDiv);
+        }
+
     </script>
 </html>
