@@ -31,24 +31,27 @@
             gesture-detector
         >
         <!-- 此处的作用是预加载资源，同时进行一个资源缓存， gltf、MP4、MP3等等-->
-            <a-assets>
+            <a-assets timeout="500">
                 <a-asset-item
-                    id="animated-asset"
-                    src="assets/asset.gltf"
+                    id="animated-asset-1"
+                    src="assets/eco.glb"
                 ></a-asset-item>
-                <!-- <a-asset-item
-                    id="animated-asset2"
-                    src=""
-                ></a-asset-item> -->
-                <audio id="music" src="assets/music.mp3" preload="auto"></audio>
+                <a-asset-item
+                    id="animated-asset-2"
+                    src="assets/eco-peace.glb"
+                ></a-asset-item>
+                <a-asset-item
+                    id="animated-asset-3"
+                    src="assets/Chaos AR.gltf"
+                ></a-asset-item>
             </a-assets>
         <!-- marker url就是从https://jeromeetienne.github.io/AR.js/three.js/examples/marker-training/examples/generator.html 这个网站上通过DOWNLOAD MARKER下载下来的
         然后放入assets中通过路径形式引入就可以-->
             <a-marker
-                id="animated-marker"
+                id="animated-green-marker"
                 type="pattern"
                 preset="custom"
-                url="assets/marker.patt"
+                url="assets/pattern-green.patt"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
@@ -57,37 +60,42 @@
             <!-- gltf-model="#animated-asset 对应asset-item中的id, 有多个3d模型的话就多增加几个<a-asset-item> -->
                 <a-entity
                     id="bowser-model"
-                    scale="1.1844162012747534 1.1844162012747534 1.1844162012747534"
+                    scale="1 1 1"
                     animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
+                    gltf-model="#animated-asset-1"
                     class="clickable"
                     gesture-handler
                 ></a-entity>
         
             <!-- 可以手动调节scale 或者 position-->
-                <!-- <a-entity
+                <a-entity
                     scale="1 1 1"
                     animation-mixer="loop: repeat"
-                    gltf-model="#"
+                    gltf-model="#animated-asset-2"
                     class="clickable"
                     gesture-handler
-                ></a-entity> -->
+                ></a-entity>
         
-            <!-- 可以添加mp4文件-->
-                <!-- <a-video
-                    src=""
-                    scale=""
-                    position=""
+            </a-marker>
+
+            <a-marker
+                id="animated-blue-marker"
+                type="pattern"
+                preset="custom"
+                url="assets/pattern-blue.patt"
+                raycaster="objects: .clickable"
+                emitevents="true"
+                cursor="fuse: false; rayOrigin: mouse;"
+                id="markerB"
+            >
+
+                <a-entity
+                    scale="1 1 1"
+                    animation-mixer="loop: repeat"
+                    gltf-model="#animated-asset-3"
                     class="clickable"
-                ></a-video> -->
-        
-            <!-- 修改音乐 -->
-                <a-sound
-                    id="sound"
-                    sound="src: #music; on: click"
-                    autoplay="true"
-                    position="0 2 5"
-                ></a-sound>
+                    gesture-handler
+                ></a-entity>
             </a-marker>
         
             <a-entity camera></a-entity>
@@ -121,5 +129,13 @@
             loadDiv.parentNode.removeChild(loadDiv);
         }
 
+        const greenModel = document.getElementById('animated-asset-3');
+        greenModel.addEventListener('progress', function(instance) {
+
+            const { loadedBytes, totalBytes } = instance?.detail || {};
+            if (loadedBytes && totalBytes) {
+                const percentage = Math.round(loadedBytes / totalBytes * 100) + '%';
+            }
+        })
     </script>
 </html>
