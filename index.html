@@ -60,8 +60,9 @@
             <!-- gltf-model="#animated-asset 对应asset-item中的id, 有多个3d模型的话就多增加几个<a-asset-item> -->
                 <a-entity
                     id="bowser-model"
-                    scale="1 1 1"
+                    scale="0.3 0.3 0.3"
                     animation-mixer="loop: repeat"
+                    position="5 1 0"
                     gltf-model="#animated-asset-1"
                     class="clickable"
                     gesture-handler
@@ -69,8 +70,9 @@
         
             <!-- 可以手动调节scale 或者 position-->
                 <a-entity
-                    scale="1 1 1"
+                    scale="0.2 0.2 0.2"
                     animation-mixer="loop: repeat"
+                    position="1 1 0"
                     gltf-model="#animated-asset-2"
                     class="clickable"
                     gesture-handler
@@ -90,7 +92,7 @@
             >
 
                 <a-entity
-                    scale="1 1 1"
+                    scale="0.1 0.1 0.1"
                     animation-mixer="loop: repeat"
                     gltf-model="#animated-asset-3"
                     class="clickable"
